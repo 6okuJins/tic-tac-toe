@@ -14,3 +14,30 @@ const gameBoard = (() => {
         set
     }
 })();
+
+const displayController = (() => {
+    const buttons = document.querySelectorAll('.game-board>button');
+    const test11 = document.querySelector("[data-row='1'][data-column='1']");
+    
+    buttons.forEach((button) => button.addEventListener('click', () => {
+        updateArray(button);
+        updateButton(button);
+    }));
+    function updateArray (button) {
+        gameBoard.set(button.dataset.row, button.dataset.column, "x")
+    }
+    function updateButton (button) {
+        const text = gameBoard.get()[button.dataset.row][button.dataset.column];
+        if (text) {
+            button.innerHTML = text;
+        }
+    }
+    function reset () {
+        gameBoard.reset();
+        buttons.forEach((button) => {
+            button.innerHTML = '';
+        });
+    }
+
+    return {reset}
+})();
