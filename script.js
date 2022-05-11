@@ -6,7 +6,9 @@ const gameBoard = (() => {
     reset();
     const get = () => array;
     const set = (i, j, value) => {
-        array[i][j] = value;
+        if (!(array[i][j])){
+            array[i][j] = value;
+        }
     }
         return {
         reset,
