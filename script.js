@@ -19,7 +19,6 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     const buttons = document.querySelectorAll('.game-board>button');
-    const test11 = document.querySelector("[data-row='1'][data-column='1']");
     
     buttons.forEach((button) => button.addEventListener('click', () => {
         updateArray(button);
@@ -43,3 +42,15 @@ const displayController = (() => {
 
     return {reset}
 })();
+
+function Player (marker) {
+    const getMarker = () => marker;
+    const setMarker = (newMarker) => {
+        marker = newMarker;
+    }
+    return {
+        getMarker,
+        setMarker
+    }
+
+}
