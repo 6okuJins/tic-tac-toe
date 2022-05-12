@@ -1,3 +1,9 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .game-board {
     display: grid;
     grid-template-columns: repeat(3, 250px);
@@ -5,5 +11,11 @@
 
     justify-content: center;
 }
-.game-board button {
+
+.announce {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
 }

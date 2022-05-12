@@ -19,13 +19,20 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     const buttons = document.querySelectorAll('.game-board>button');
+    const resetButton = document.querySelector('button.reset');
+    const announce = document.querySelector('.announce')
     const Player1 = Player('X');
     const Player2 = Player('O');
 
     let round = 0;
-    let stagedPlayer;
+    let stagedPlayer = Player1;
     let gameOver = false;
+    announce.textContent = stagedPlayer.getMarker() + "'s turn."
 
+    resetButton.addEventListener('click', () => {
+        reset();
+        announce.textContent = stagedPlayer.getMarker() + "'s turn.";
+    });
     buttons.forEach((button) => button.addEventListener('click', () => {
         if (gameOver) {
             return
@@ -34,9 +41,11 @@ const displayController = (() => {
         updateArray(button);
         updateButton(button);
         round++;
+        announce.textContent = checkTurn().getMarker() + "'s turn."
+
         gameOver = checkGameOver();
         if (gameOver) {
-            console.log(stagedPlayer.getMarker() + " wins!");
+            announce.textContent = stagedPlayer.getMarker() + " wins!";
         }
     }));
     function updateArray (button) {
@@ -81,23 +90,21 @@ const displayController = (() => {
         return result
     }
     function checkCompleteDiagonal (matrix) {
-        console.log('checking diagonal')
         let result = false;
         if (matrix[1][1]){
-            console.log('checking diagonal 1')
             if (matrix[0][0] == matrix[1][1] && matrix[1][1] == matrix[2][2]) {
-                console.log('checking diagonal 2')
                 result = true;
             }
             else if (matrix[0][2] == matrix[1][1] && matrix[1][1] == matrix[2][0]) {
-                console.log('checking diagonal 3')
                 result = true;
             }
         }
         return result
     }
     function reset () {
+        gameOver = false;
         round = 0;
+        stagedPlayer = Player1;
         gameBoard.reset();
         buttons.forEach((button) => {
             button.innerHTML = '';
