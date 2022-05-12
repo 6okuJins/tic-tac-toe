@@ -34,7 +34,7 @@ const displayController = (() => {
         announce.textContent = stagedPlayer.getMarker() + "'s turn.";
     });
     buttons.forEach((button) => button.addEventListener('click', () => {
-        if (gameOver) {
+        if (gameOver || round == 9) {
             return
         }
         stagedPlayer = checkTurn();
@@ -44,6 +44,9 @@ const displayController = (() => {
         announce.textContent = checkTurn().getMarker() + "'s turn."
 
         gameOver = checkGameOver();
+        if (round == 9 && !gameOver) {
+            announce.textContent = "It's a tie!";
+        }
         if (gameOver) {
             announce.textContent = stagedPlayer.getMarker() + " wins!";
         }
@@ -61,9 +64,6 @@ const displayController = (() => {
         return (round % 2 ? Player2 : Player1)
     }
     function checkGameOver () {
-        if (round == 9){
-            return true
-        }
 
         const matrix = gameBoard.get();
         const transpose =
